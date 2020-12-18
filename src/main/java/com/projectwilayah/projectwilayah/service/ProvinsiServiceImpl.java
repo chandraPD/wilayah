@@ -62,8 +62,8 @@ public class ProvinsiServiceImpl implements ProvinsiService {
 			provinsiEntity.setKodeProvinsi(dto.getKodeProvinsi());
 			provinsiEntity.setNamaProvinsi(dto.getNamaProvinsi());
 			provinsiRepository.save(provinsiEntity);
-			result.setStatus(200);
-			result.setMessage("Berhasil");
+			result.setStatus(HttpStatus.OK.value());
+			result.setMessage("Data Provinsi Berhasil diperbaharui");
 			result.setData(provinsiEntity);
 		} else {
 			result.setStatus(400);

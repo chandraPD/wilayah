@@ -29,11 +29,13 @@ public class KabupatenServiceImpl implements KabupatenService {
 		// TODO Auto-generated method stub
 		StatusMessageDto<KabupatenEntity> result = new StatusMessageDto<>();
 
+		KabupatenEntity kabupatenEntity = convertToKabupatenEntity(dto);
+		
 		String checkNama = kabupatenRepository.findByNama(dto.getNamaKabupaten());
-		String checkKode = kabupatenRepository.findByKode(dto.getKodeKabupaten());
+		String kodeKabupaten = kabupatenEntity.getProvinsiEntity().getKodeProvinsi()+"."+dto.getKodeKabupaten();
+		String checkKode = kabupatenRepository.findByKode(kodeKabupaten);
 		if (checkNama == null && checkKode == null) {
 
-			KabupatenEntity kabupatenEntity = convertToKabupatenEntity(dto);
 			kabupatenRepository.save(kabupatenEntity);
 //			check jika berhasil
 			if (kabupatenEntity.getId() != null) {
@@ -49,7 +51,7 @@ public class KabupatenServiceImpl implements KabupatenService {
 		} else {
 			result.setStatus(HttpStatus.BAD_GATEWAY.value());
 			if (checkKode != null) {
-				result.setMessage("Gagal, Kode Kabupaten " + dto.getKodeKabupaten() + " sudah ada");
+				result.setMessage("Gagal, Kode Kabupaten " + kodeKabupaten + " sudah ada");
 			} else if (checkNama != null) {
 				result.setMessage("Gagal, Nama Kabupaten " + dto.getNamaKabupaten() + " sudah ada");
 			}
@@ -65,21 +67,23 @@ public class KabupatenServiceImpl implements KabupatenService {
 		// TODO Auto-generated method stub
 		
 		StatusMessageDto<KabupatenEntity> result = new StatusMessageDto<>();
+		KabupatenEntity kabupatenEntity = kabupatenRepository.findById(idKabupaten).get();	
 		String checkNama = kabupatenRepository.findByNama(dto.getNamaKabupaten());
-		String checkKode = kabupatenRepository.findByKode(dto.getKodeKabupaten());
+		String kodeKabupaten = kabupatenEntity.getProvinsiEntity().getKodeProvinsi()+"."+dto.getKodeKabupaten();
+		String checkKode = kabupatenRepository.findByKode(kodeKabupaten);
 		if (checkNama == null && checkKode == null) {
-			KabupatenEntity kabupatenEntity = kabupatenRepository.findById(idKabupaten).get();	
+			
 //			check jika berhasil
-			kabupatenEntity.setKodeKabupaten(dto.getKodeKabupaten());
+			kabupatenEntity.setKodeKabupaten(kodeKabupaten);
 			kabupatenEntity.setNamaKabupaten(dto.getNamaKabupaten());
 			kabupatenRepository.save(kabupatenEntity);
-			result.setMessage("Data Kabupaten Berhasil diinputkan");
+			result.setMessage("Data Kabupaten Berhasil diperbaharui");
 			result.setStatus(HttpStatus.OK.value());
 			result.setData(kabupatenEntity);
 		} else {
 			result.setStatus(HttpStatus.BAD_GATEWAY.value());
 			if (checkKode != null) {
-				result.setMessage("Gagal, Kode Kabupaten " + dto.getKodeKabupaten() + " sudah ada");
+				result.setMessage("Gagal, Kode Kabupaten " + kodeKabupaten + " sudah ada");
 			} else if (checkNama != null) {
 				result.setMessage("Gagal, Nama Kabupaten " + dto.getNamaKabupaten() + " sudah ada");
 			}
@@ -114,7 +118,7 @@ public class KabupatenServiceImpl implements KabupatenService {
 	public KabupatenEntity convertToKabupatenEntity(KabupatenDto dto) {
 		KabupatenEntity kabupatenEntity = new KabupatenEntity();
 		ProvinsiEntity provinsiEntity = provinsiRepository.findByKodeProvinsiIgnoreCase(dto.getKodeProvinsi());
-		kabupatenEntity.setKodeKabupaten(dto.getKodeKabupaten());
+		kabupatenEntity.setKodeKabupaten(dto.getKodeProvinsi()+"."+dto.getKodeKabupaten());
 		kabupatenEntity.setNamaKabupaten(dto.getNamaKabupaten());
 		kabupatenEntity.setProvinsiEntity(provinsiEntity);
 		return kabupatenEntity;
