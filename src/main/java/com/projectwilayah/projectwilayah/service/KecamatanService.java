@@ -11,6 +11,8 @@ public interface KecamatanService {
 	StatusMessageDto<?> save(KecamatanDto dto);
 	StatusMessageDto<?> update(KecamatanDto dto, Integer idKecamatan);
 	StatusMessageDto<?> delete(Integer idKecamatan);
+	StatusMessageDto<?> getById(Integer idKecamatan);
+	StatusMessageDto<?> getByKode(String kodeKecamatan);
 	
 	List<KecamatanEntity> getAll();
 }

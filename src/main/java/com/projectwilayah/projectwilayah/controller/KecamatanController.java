@@ -32,6 +32,18 @@ public class KecamatanController {
 		return kecamatanEntities;
 	}
 	
+	@GetMapping("/get-by-id/{idKecamatan}")
+	public ResponseEntity<?> getById(@PathVariable Integer idKecamatan){
+		StatusMessageDto<?> result = kecamatanService.getById(idKecamatan);
+		return ResponseEntity.ok(result);
+	}
+	
+	@GetMapping("/get-by-kode/{kodeKecamatan}")
+	public ResponseEntity<?> getByKode(@PathVariable String kodeKecamatan){
+		StatusMessageDto<?> result = kecamatanService.getByKode(kodeKecamatan);
+		return ResponseEntity.ok(result);
+	}
+	
 //	Save 1 Kecamatan
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody KecamatanDto dto){

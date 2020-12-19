@@ -3,7 +3,6 @@ package com.projectwilayah.projectwilayah.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +32,20 @@ public class ProvinsiController {
 //	Get All Data Provinsi
 	@GetMapping("/get-all")
 	public List<ProvinsiEntity> getAll(){
-		List<ProvinsiEntity> provinsiEntities = provinsiRepository.findAll();
+		List<ProvinsiEntity> provinsiEntities = provinsiService.getAll();
 		return provinsiEntities;
+	}
+
+	@GetMapping("/get-by-id/{idProvinsi}")
+	public ResponseEntity<?> getById(@PathVariable Integer idProvinsi){
+		StatusMessageDto<?> result = provinsiService.getById(idProvinsi);
+		return ResponseEntity.ok(result);
+	}
+	
+	@GetMapping("/get-by-kode/{kodeProvinsi}")
+	public ResponseEntity<?> getByKode(@PathVariable String kodeProvinsi){
+		StatusMessageDto<?> result = provinsiService.getByKode(kodeProvinsi);
+		return ResponseEntity.ok(result);
 	}
 	
 //	save 1 provinsi

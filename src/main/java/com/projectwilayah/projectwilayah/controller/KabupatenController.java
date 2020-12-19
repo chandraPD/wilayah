@@ -32,6 +32,20 @@ public class KabupatenController {
 		return kabupatenEntities;
 	}
 	
+
+	@GetMapping("/get-by-id/{idKabupaten}")
+	public ResponseEntity<?> getById(@PathVariable Integer idKabupaten){
+		StatusMessageDto<?> result = kabupatenService.getById(idKabupaten);
+		return ResponseEntity.ok(result);
+	}
+	
+	@GetMapping("/get-by-kode/{kodeKabupaten}")
+	public ResponseEntity<?> getByKode(@PathVariable String kodeKabupaten){
+		StatusMessageDto<?> result = kabupatenService.getByKode(kodeKabupaten);
+		return ResponseEntity.ok(result);
+	}
+	
+	
 //	save 1 kabupaten
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody KabupatenDto dto){

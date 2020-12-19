@@ -131,4 +131,26 @@ public class KabupatenServiceImpl implements KabupatenService {
 		return kabupatenEntities;
 	}
 
+	@Override
+	public StatusMessageDto<?> getById(Integer idKabupaten) {
+		// TODO Auto-generated method stub
+		KabupatenEntity kabupatenEntity = kabupatenRepository.findById(idKabupaten).get();
+		StatusMessageDto<KabupatenEntity> result = new StatusMessageDto<>();
+		result.setStatus(200);
+		result.setMessage("Data ditemukan");
+		result.setData(kabupatenEntity);
+		return result;
+	}
+
+	@Override
+	public StatusMessageDto<?> getByKode(String kodeKabupaten) {
+		// TODO Auto-generated method stub
+		KabupatenEntity kabupatenEntity = kabupatenRepository.findByKodeKabupatenIgnoreCase(kodeKabupaten);
+		StatusMessageDto<KabupatenEntity> result = new StatusMessageDto<>();
+		result.setStatus(200);
+		result.setMessage("Data ditemukan");
+		result.setData(kabupatenEntity);
+		return result;
+	}
+
 }

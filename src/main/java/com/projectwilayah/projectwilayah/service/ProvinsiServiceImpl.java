@@ -1,5 +1,7 @@
 package com.projectwilayah.projectwilayah.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -107,6 +109,35 @@ public class ProvinsiServiceImpl implements ProvinsiService {
 		provinsiEntity.setKodeProvinsi(dto.getKodeProvinsi());
 		provinsiEntity.setNamaProvinsi(dto.getNamaProvinsi());
 		return provinsiEntity;
+	}
+
+	@Override
+	public StatusMessageDto<?> getById(Integer idProvinsi) {
+		// TODO Auto-generated method stub
+		ProvinsiEntity provinsiEntity = provinsiRepository.findById(idProvinsi).get();
+		StatusMessageDto<ProvinsiEntity> result = new StatusMessageDto<>();
+		result.setStatus(200);
+		result.setMessage("Data ditemukan");
+		result.setData(provinsiEntity);
+		return result;
+	}
+
+	@Override
+	public StatusMessageDto<?> getByKode(String kodeProvinsi) {
+		// TODO Auto-generated method stub
+		ProvinsiEntity provinsiEntity = provinsiRepository.findByKodeProvinsiIgnoreCase(kodeProvinsi);
+		StatusMessageDto<ProvinsiEntity> result = new StatusMessageDto<>();
+		result.setStatus(200);
+		result.setMessage("Data ditemukan");
+		result.setData(provinsiEntity);
+		return result;
+	}
+
+	@Override
+	public List<ProvinsiEntity> getAll() {
+		// TODO Auto-generated method stub
+		List<ProvinsiEntity> provinsiEntities = provinsiRepository.findAll();
+		return provinsiEntities;
 	}
 
 }

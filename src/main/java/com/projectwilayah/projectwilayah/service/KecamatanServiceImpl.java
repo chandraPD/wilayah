@@ -139,4 +139,26 @@ public class KecamatanServiceImpl implements KecamatanService {
 		return kecamatanEntity;
 	}
 
+	@Override
+	public StatusMessageDto<?> getById(Integer idKecamatan) {
+		// TODO Auto-generated method stub
+		KecamatanEntity kecamatanEntity = kecamatanRepository.findById(idKecamatan).get();
+		StatusMessageDto<KecamatanEntity> result = new StatusMessageDto<>();
+		result.setStatus(200);
+		result.setMessage("Data ditemukan");
+		result.setData(kecamatanEntity);
+		return result;
+	}
+
+	@Override
+	public StatusMessageDto<?> getByKode(String kodeKecamatan) {
+		// TODO Auto-generated method stub
+		KecamatanEntity kecamatanEntity = kecamatanRepository.findByKodeKecamatanIgnoreCase(kodeKecamatan);
+		StatusMessageDto<KecamatanEntity> result = new StatusMessageDto<>();
+		result.setStatus(200);
+		result.setMessage("Data ditemukan");
+		result.setData(kecamatanEntity);
+		return result;
+	}
+
 }

@@ -11,6 +11,7 @@ public interface KabupatenService {
 	StatusMessageDto<?> save(KabupatenDto dto);
 	StatusMessageDto<?> update(KabupatenDto dto, Integer idKabupaten);
 	StatusMessageDto<?> delete(Integer idKabupaten);
-	
+	StatusMessageDto<?> getById(Integer idKabupaten);
+	StatusMessageDto<?> getByKode(String kodeKabupaten);
 	List<KabupatenEntity> getAll();
 }
